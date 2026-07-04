@@ -1,0 +1,272 @@
+<!DOCTYPE html>
+<html lang="en" data-theme="light">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>HRIS Projects</title>
+  <link href="https://api.fontshare.com/v2/css?f[]=satoshi@400,500,700&f[]=cabinet-grotesk@500,700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --text-xs: clamp(0.75rem, 0.7rem + 0.25vw, 0.875rem);
+      --text-sm: clamp(0.875rem, 0.8rem + 0.35vw, 1rem);
+      --text-base: clamp(1rem, 0.95rem + 0.25vw, 1.125rem);
+      --text-lg: clamp(1.125rem, 1rem + 0.75vw, 1.5rem);
+      --text-xl: clamp(1.5rem, 1.2rem + 1.25vw, 2.25rem);
+      --space-2: 0.5rem; --space-3: 0.75rem; --space-4: 1rem; --space-6: 1.5rem; --space-8: 2rem; --space-12: 3rem; --space-16: 4rem;
+      --color-bg:#f7f6f2; --color-surface:#f9f8f5; --color-surface-2:#fbfbf9; --color-border:#d4d1ca; --color-text:#28251d; --color-muted:#6e6b64; --color-primary:#01696f; --color-primary-2:#cedcd8; --color-success:#437a22; --color-warn:#da7101; --shadow:0 12px 32px rgba(40,37,29,.08);
+      --font-body:'Satoshi', sans-serif; --font-display:'Cabinet Grotesk', sans-serif;
+      --radius: 18px;
+    }
+    [data-theme="dark"] { --color-bg:#171614; --color-surface:#1c1b19; --color-surface-2:#201f1d; --color-border:#393836; --color-text:#e5e3de; --color-muted:#a09b92; --color-primary:#4f98a3; --color-primary-2:#313b3b; --shadow:0 14px 36px rgba(0,0,0,.28); }
+    * { box-sizing:border-box; } body { margin:0; font-family:var(--font-body); font-size:var(--text-base); color:var(--color-text); background:var(--color-bg); line-height:1.55; }
+    a { color:inherit; } .wrap { max-width:1180px; margin:0 auto; padding:0 var(--space-4); }
+    header { position:sticky; top:0; backdrop-filter:blur(12px); background:color-mix(in srgb, var(--color-bg) 84%, transparent); border-bottom:1px solid var(--color-border); z-index:20; }
+    .nav { display:flex; justify-content:space-between; align-items:center; min-height:72px; gap:var(--space-4); }
+    .brand { display:flex; align-items:center; gap:.8rem; font-weight:700; } .logo { width:34px; height:34px; border-radius:12px; background:linear-gradient(135deg,var(--color-primary),#5ca4ac); box-shadow:var(--shadow); }
+    .theme { border:1px solid var(--color-border); background:var(--color-surface); color:var(--color-text); border-radius:999px; padding:.7rem .9rem; }
+    .hero { padding:var(--space-16) 0 var(--space-12); display:grid; gap:var(--space-8); }
+    .eyebrow { color:var(--color-primary); font-size:var(--text-sm); font-weight:700; text-transform:uppercase; letter-spacing:.08em; }
+    h1,h2,h3 { font-family:var(--font-display); line-height:1.05; margin:0; } h1 { font-size:clamp(2.6rem, 5vw, 4.6rem); max-width:15ch; } h2 { font-size:var(--text-xl); margin-bottom:var(--space-3); } h3 { font-size:1.35rem; }
+    .sub { max-width:80ch; color:var(--color-muted); }
+    .hero-grid { display:grid; grid-template-columns:1.35fr .95fr; gap:var(--space-6); align-items:start; }
+    .card { background:var(--color-surface); border:1px solid var(--color-border); border-radius:var(--radius); padding:var(--space-6); box-shadow:var(--shadow); }
+    .kpis { display:grid; grid-template-columns:repeat(4,1fr); gap:var(--space-4); margin-top:var(--space-4); }
+    .kpi { background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:16px; padding:var(--space-4); }
+    .kpi b { display:block; font-size:1.6rem; margin-bottom:.2rem; }
+    .section { padding:var(--space-12) 0; }
+    .charts { display:grid; grid-template-columns:1.15fr .85fr; gap:var(--space-6); }
+    .bars { display:grid; gap:14px; margin-top:var(--space-4); } .bar-row { display:grid; grid-template-columns:140px 1fr 56px; align-items:center; gap:12px; }
+    .track { height:12px; border-radius:999px; background:var(--color-primary-2); overflow:hidden; } .fill { height:100%; border-radius:999px; background:var(--color-primary); }
+    .mini-table { width:100%; border-collapse:collapse; margin-top:var(--space-4); font-size:var(--text-sm); } .mini-table th,.mini-table td { text-align:left; padding:.8rem; border-bottom:1px solid var(--color-border); }
+    .pipeline { display:grid; grid-template-columns:repeat(7,1fr); gap:12px; margin-top:var(--space-4); }
+    .stage { background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:16px; padding:1rem; min-height:180px; } .stage.bad { border-color:#caa58a; } .stage.good { border-color:#7ea287; }
+    .chip { display:inline-block; margin:.2rem .25rem .1rem 0; padding:.3rem .55rem; border-radius:999px; font-size:var(--text-xs); background:var(--color-primary-2); color:var(--color-text); }
+    .rank { display:grid; gap:14px; margin-top:var(--space-4); } .person { background:var(--color-surface-2); border:1px solid var(--color-border); border-radius:16px; padding:1rem; } .meter { height:10px; border-radius:999px; background:var(--color-primary-2); margin:.5rem 0 .65rem; overflow:hidden; } .meter span { display:block; height:100%; background:linear-gradient(90deg,var(--color-primary),#66adb5); }
+    .footer { padding:var(--space-12) 0; color:var(--color-muted); font-size:var(--text-sm); }
+    .logo-img { 
+  width: 60px; 
+  height: 60px; 
+  border-radius: 12px; 
+  object-fit: cover; 
+  display: block; 
+  box-shadow: var(--shadow); 
+}
+.showcase-img {
+  width: 400px; /* Change this number to whatever size you want */
+  height: 60px;  /* Overrides the 34px height from .logo-img so it stays proportional */
+}
+
+.brand { 
+  height: 34px; 
+  display: flex; 
+  align-items: center; 
+  justify-content: flex-start; /* Changed from center to look better in a nav bar */
+  gap: .8rem; 
+  font-weight: 700; 
+  white-space: nowrap; /* Prevents text from wrapping to a new line */
+}
+.artifact-btn {
+  display: inline-block;
+  padding: 0.55rem 0.9rem;
+  border-radius: 999px;
+  background: var(--color-primary);
+  color: white;
+  text-decoration: none;
+  font-size: var(--text-sm);
+  font-weight: 600;
+  line-height: 1;
+  white-space: nowrap;
+}
+
+.artifact-btn:hover {
+  opacity: 0.9;
+}
+    @media (max-width: 920px) { .hero-grid,.charts,.pipeline,.kpis { grid-template-columns:1fr; } .bar-row { grid-template-columns:110px 1fr 44px; } h1 { max-width:14ch; } }
+  </style>
+</head>
+<body>
+<header>
+  <div class="wrap nav">
+    <div class="brand">
+      <img src="worknite-logo.png" alt="Worknite logo" class="logo-img" aria-hidden="true">
+    </div>
+    <div class="brand">
+  <img src="worknite-image.png" alt="Worknite showcase" class="logo-img showcase-img">
+</div>
+    <button class="theme" data-theme-toggle aria-label="Switch theme">Theme</button>
+  </div>
+</header>
+<main class="wrap">
+  <section class="hero">
+    <div>
+      <div class="eyebrow">Priscilla's Portfolio project</div>
+      <h1>Four portfolio projects across people systems, recruiting operations, and process design.</h1>
+      <p class="sub">This portfolio showcases systematic problem-solving across HR data, reporting, workflows, and process improvement.</p>
+    </div>
+    <div class="hero-grid">
+      <div class="card">
+        <h3>4 Demo Case Studies</h3>
+        <div class="kpis">
+          <div class="kpi"><b>1</b><span>Data audit and troubleshooting</span></div>
+          <div class="kpi"><b>1</b><span>Recruiting dashboard with stage metrics</span></div>
+          <div class="kpi"><b>1</b><span>Workflow redesign with automations</span></div>
+          <div class="kpi"><b>1</b><span>Candidate ranking model</span></div>
+        </div>
+      </div>
+      <!-- <div class="card">
+        <h3>Suggested interview framing</h3>
+        <p class="sub" style="margin-top:.5rem">“I built projects that show how I think about hiring systems: where candidates drop off, where process friction slows teams down, and how to use structured logic to make decisions more consistent.”</p>
+      </div> -->
+    </div>
+  </section>
+
+    <section class="section" id="hris">
+    <div class="eyebrow">Project 1</div>
+    <h2>HRIS data audit and troubleshooting</h2>
+    <p class="sub">A portfolio project designed to show HRIS analyst work: auditing employee records, identifying data quality issues, prioritizing risk, and recommending process fixes that improve reporting reliability and payroll accuracy.</p>
+    <div class="charts" style="margin-top:1.25rem">
+      <div class="card">
+        <h3>Project focus</h3>
+        <table class="mini-table">
+          <tr><th>Check</th><th>Why it matters</th></tr>
+          <tr><td>Duplicate employee IDs</td><td>Protects data integrity</td></tr>
+          <tr><td>Missing compensation</td><td>Reduces payroll and reporting risk</td></tr>
+          <tr><td>Invalid manager assignment</td><td>Preserves org hierarchy accuracy</td></tr>
+          <tr><td>Status / termination mismatch</td><td>Prevents lifecycle and compliance errors</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>My thinking process</h3>
+        <p class="sub" style="margin-top:.5rem">I created an HRIS database to show how I’d handle employee record quality in a real system.</p>
+        <p class="sub" style="margin-top:.5rem">I reviewed a sample dataset for high-risk exceptions, logged the issues, and recommended fixes and validation improvements.</p>
+        <p class="sub" style="margin-top:.5rem">I corrected the issues immediately and prevented them from happening again.</p>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <h3>Sample artifacts</h3>
+      <table class="mini-table">
+        <tr><th>File</th><th>Purpose</th></tr>
+        <tr>
+  <td><a href="hris_employee_data_audit_raw.html" class="artifact-btn" target="_blank" rel="noopener noreferrer">Open raw data</a></td>
+  <td>Mock employee master file with intentional issues</td>
+</tr>
+<tr>
+  <td><a href="hris_employee_data_audit_issues.html" class="artifact-btn" target="_blank" rel="noopener noreferrer">Open issue log</a></td>
+  <td>Issue log with severity and recommended fixes</td>
+</tr>
+<tr>
+  <td><a href="hris_employee_data_audit_summary.html" class="artifact-btn" target="_blank" rel="noopener noreferrer">Open summary</a></td>
+  <td>Summary of issue types and counts</td>
+</tr>
+        
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="dashboard">
+    <div class="eyebrow">Project 2</div>
+    <h2>Recruiting funnel dashboard</h2>
+    <p class="sub">A lightweight dashboard that tracks applicants, pass-through rates, time-to-fill, and where the biggest drop-offs happen across requisitions.
+      A dashboard like this supports better pipeline visibility, faster hiring decisions, and a more consistent candidate experience.
+    </p>
+    <div class="charts" style="margin-top:1.25rem">
+      <div class="card">
+        <h3>Stage conversion</h3>
+        <div class="bars">
+          <div class="bar-row"><span>Applicants</span><div class="track"><div class="fill" style="width:100%"></div></div><strong>194</strong></div>
+          <div class="bar-row"><span>Recruiter screen</span><div class="track"><div class="fill" style="width:32%"></div></div><strong>62</strong></div>
+          <div class="bar-row"><span>Hiring manager</span><div class="track"><div class="fill" style="width:16%"></div></div><strong>31</strong></div>
+          <div class="bar-row"><span>Final round</span><div class="track"><div class="fill" style="width:10%"></div></div><strong>19</strong></div>
+          <div class="bar-row"><span>Offers</span><div class="track"><div class="fill" style="width:6%"></div></div><strong>12</strong></div>
+          <div class="bar-row"><span>Hires</span><div class="track"><div class="fill" style="width:4%"></div></div><strong>8</strong></div>
+        </div>
+      </div>
+      <div class="card">
+        <h3>Key insights</h3>
+        <table class="mini-table">
+          <tr><th>Metric</th><th>Value</th></tr>
+          <tr><td>Avg. time to fill</td><td>43 days</td></tr>
+          <tr><td>Screen pass-through</td><td>50%</td></tr>
+          <tr><td>Offer acceptance</td><td>67%</td></tr>
+          <tr><td>Largest drop-off</td><td>Applicants → recruiter screen</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <h3>Sample requisition view</h3>
+      <table class="mini-table">
+        <tr><th>Req</th><th>Role</th><th>Applicants</th><th>Offers</th><th>Hires</th><th>Time to fill</th></tr>
+        <tr><td>REQ-1001</td><td>Sales Recruiter</td><td>34</td><td>3</td><td>2</td><td>39 days</td></tr><tr><td>REQ-1002</td><td>HRBP</td><td>22</td><td>2</td><td>2</td><td>55 days</td></tr><tr><td>REQ-1003</td><td>People Systems Analyst</td><td>18</td><td>1</td><td>1</td><td>54 days</td></tr><tr><td>REQ-1004</td><td>Software Engineer</td><td>46</td><td>4</td><td>2</td><td>25 days</td></tr><tr><td>REQ-1005</td><td>Data Analyst</td><td>20</td><td>1</td><td>1</td><td>56 days</td></tr><tr><td>REQ-1006</td><td>Customer Success Manager</td><td>14</td><td>1</td><td>1</td><td>55 days</td></tr>
+      </table>
+    </div>
+  </section>
+
+  <section class="section" id="workflow">
+    <div class="eyebrow">Project 3</div>
+    <h2>ATS workflow redesign</h2>
+    <p class="sub">A before-and-after process map that turns a messy hiring flow into a cleaner system with accurate stage tracking, automated triggers, and fewer manual handoffs.</p>
+    <div class="pipeline">
+      <div class="stage bad"><h3>1. Intake</h3><p>Job opens without intake template.</p><span class="chip">Missing SLA</span><span class="chip">Unclear approvals</span></div>
+      <div class="stage bad"><h3>2. Apply</h3><p>All candidates land in one generic queue.</p><span class="chip">No tagging</span><span class="chip">Manual triage</span></div>
+      <div class="stage bad"><h3>3. Screen</h3><p>Recruiter updates stage late or inconsistently.</p><span class="chip">Bad reporting</span></div>
+      <div class="stage bad"><h3>4. Schedule</h3><p>Back-and-forth email chains for interviews.</p><span class="chip">Admin heavy</span></div>
+      <div class="stage bad"><h3>5. Feedback</h3><p>Interview feedback not collected on time.</p><span class="chip">Delays</span></div>
+      <div class="stage bad"><h3>6. Offer</h3><p>Offer details gathered by email.</p><span class="chip">Version risk</span></div>
+      <div class="stage bad"><h3>7. Close</h3><p>Disposition reasons missing; req closure inconsistent.</p><span class="chip">Dirty data</span></div>
+    </div>
+    <div class="pipeline" style="margin-top:1rem">
+      <div class="stage good"><h3>1. Intake</h3><p>Standardized intake form with approvers, target timeline, and scorecard.</p><span class="chip">Template</span><span class="chip">SLA</span></div>
+      <div class="stage good"><h3>2. Apply</h3><p>Auto-tag by source, location, and role family.</p><span class="chip">Routing rule</span><span class="chip">Auto-acknowledgment</span></div>
+      <div class="stage good"><h3>3. Screen</h3><p>Screening questions and standardized disposition reasons keep data clean.</p><span class="chip">Structured reasons</span></div>
+      <div class="stage good"><h3>4. Schedule</h3><p>Calendar links and trigger-based reminders reduce coordination work.</p><span class="chip">Scheduling automation</span></div>
+      <div class="stage good"><h3>5. Feedback</h3><p>Interviewers receive auto-reminders until scorecards are submitted.</p><span class="chip">Reminder automation</span></div>
+      <div class="stage good"><h3>6. Offer</h3><p>Offer details route through the approval chain, then generate the offer letter automatically.</p><span class="chip">Approval workflow</span></div>
+      <div class="stage good"><h3>7. Close</h3><p>Required disposition reasons and close-out checklist preserve reporting quality.</p><span class="chip">Required fields</span><span class="chip">Clean close</span></div>
+    </div>
+  </section>
+
+  <section class="section" id="matching">
+    <div class="eyebrow">Project 4</div>
+    <h2>Candidate matching model</h2>
+    <p class="sub">A simple weighted scorecard ranks candidates against a Talent Engineer profile using structured criteria instead of gut feel alone.</p>
+    <div class="charts" style="margin-top:1.25rem">
+      <div class="card">
+        <h3>Scoring logic</h3>
+        <table class="mini-table">
+          <tr><th>Criteria</th><th>Weight</th></tr>
+          <tr><td>ATS workflow design</td><td>25%</td></tr><tr><td>Data analysis / reporting</td><td>20%</td></tr><tr><td>Automation / no-code</td><td>20%</td></tr><tr><td>Stakeholder partnership</td><td>15%</td></tr><tr><td>SQL or technical fluency</td><td>10%</td></tr><tr><td>Documentation / process design</td><td>10%</td></tr>
+        </table>
+      </div>
+      <div class="card">
+        <h3>Ranked candidates</h3>
+        <div class="rank">
+          <div class='person'><strong>Priscilla K</strong><div class='meter'><span style='width:88.0%'></span></div><div>Match score: <strong>90.0/100</strong></div></div><div class='person'><strong>Diana S</strong><div class='meter'><span style='width:86.0%'></span></div><div>Match score: <strong>86.0/100</strong></div></div><div class='person'><strong>Fatima K</strong><div class='meter'><span style='width:84.0%'></span></div><div>Match score: <strong>84.0/100</strong></div></div><div class='person'><strong>Chris T</strong><div class='meter'><span style='width:79.0%'></span></div><div>Match score: <strong>79.0/100</strong></div></div><div class='person'><strong>Ben R</strong><div class='meter'><span style='width:69.0%'></span></div><div>Match score: <strong>69.0/100</strong></div></div><div class='person'><strong>Evan L</strong><div class='meter'><span style='width:67.0%'></span></div><div>Match score: <strong>67.0/100</strong></div></div>
+        </div>
+      </div>
+    </div>
+    <div class="card" style="margin-top:1rem">
+      <h3>My System Design Thinking</h3>
+      <p class="sub">This project shows that I can translate a vague hiring profile into measurable criteria, apply consistent weighting, and create a repeatable decision framework.</p>
+    </div>
+  </section>
+
+
+
+  <section class="footer">
+    
+  </section>
+</main>
+<script>
+  (() => {
+    const btn = document.querySelector('[data-theme-toggle]');
+    const root = document.documentElement;
+    let theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
+    root.setAttribute('data-theme', theme);
+    btn.addEventListener('click', () => {
+      theme = theme === 'dark' ? 'light' : 'dark';
+      root.setAttribute('data-theme', theme);
+    });
+  })();
+</script>
+</body>
+</html>
